@@ -316,21 +316,22 @@ Mostrar("Hola");   // Texto: Hola`,
           'Una clase es un plano (blueprint) que define propiedades y comportamientos. Un objeto es una instancia de una clase. Las clases encapsulan datos (campos/propiedades) y métodos que operan sobre esos datos.',
         code: `public class Persona
 {
-    // Campos
+    // Campos (datos privados)
     private string nombre;
+    private int edad;
 
-    // Propiedades
+    // Propiedades (acceso controlado a los campos)
     public string Nombre
     {
-        get => nombre;
-        set => nombre = value ?? "Sin nombre";
+        get { return nombre; }
+        set { nombre = value; }
     }
 
-    public int Edad { get; set; }
-    public string Email { get; set; }
-
-    // Propiedad de solo lectura
-    public string Info => $"{Nombre}, {Edad} años";
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
 
     // Constructor
     public Persona(string nombre, int edad)
@@ -348,8 +349,7 @@ Mostrar("Hola");   // Texto: Hola`,
 
 // Uso
 Persona persona = new Persona("Carlos", 30);
-persona.Presentarse();
-Console.WriteLine(persona.Info);`,
+persona.Presentarse(); // Hola, soy Carlos y tengo 30 años`,
       },
       {
         id: 'constructores',
@@ -438,39 +438,49 @@ animal.HacerSonido(); // "Rex dice: Guau!" (polimorfismo)`,
         title: 'Polimorfismo',
         content:
           'El polimorfismo permite que un mismo método se comporte de forma diferente según el tipo de objeto que lo invoque. Se logra con "virtual" en la clase base y "override" en las derivadas. También existe el polimorfismo de sobrecarga.',
-        code: `public class Forma
+        code: `public class Animal
 {
-    public virtual string Dibujar() => "Dibujando forma genérica";
+    public string Nombre { get; set; }
+
+    // "virtual" permite sobrescribir este método en las clases hijas
+    public virtual void HacerSonido()
+    {
+        Console.WriteLine($"{Nombre} hace un sonido");
+    }
 }
 
-public class Circulo : Forma
+// Sobrescritura de métodos (override)
+public class Perro : Animal
 {
-    public double Radio { get; set; }
-    public override string Dibujar() => $"Dibujando círculo (r={Radio})";
+    public override void HacerSonido()
+    {
+        Console.WriteLine($"{Nombre} dice: Guau!");
+    }
 }
 
-public class Rectangulo : Forma
+public class Gato : Animal
 {
-    public double Ancho { get; set; }
-    public double Alto { get; set; }
-    public override string Dibujar() =>
-        $"Dibujando rectángulo ({Ancho}x{Alto})";
+    public override void HacerSonido()
+    {
+        Console.WriteLine($"{Nombre} dice: Miau!");
+    }
 }
 
-// Polimorfismo en acción
-Forma[] formas = {
-    new Circulo { Radio = 5 },
-    new Rectangulo { Ancho = 10, Alto = 4 },
-    new Forma()
+// Polimorfismo en acción: el mismo método
+// se comporta según el tipo real del objeto
+Animal[] animales = {
+    new Perro { Nombre = "Rex" },
+    new Gato { Nombre = "Misi" },
+    new Animal { Nombre = "Genérico" }
 };
 
-foreach (Forma forma in formas)
+foreach (Animal animal in animales)
 {
-    Console.WriteLine(forma.Dibujar());
+    animal.HacerSonido();
 }
-// Dibujando círculo (r=5)
-// Dibujando rectángulo (10x4)
-// Dibujando forma genérica`,
+// Rex dice: Guau!
+// Misi dice: Miau!
+// Genérico hace un sonido`,
       },
       {
         id: 'interfaces',
