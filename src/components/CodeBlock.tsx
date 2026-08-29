@@ -1,4 +1,4 @@
-import { useMemo, useState, type MouseEvent, type ReactNode } from 'react'
+import { useMemo, useState, useRef, useEffect, type MouseEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { GLOSSARY, KEYWORDS } from '../data/csharpGlossary'
 
@@ -129,8 +129,16 @@ interface Tooltip {
   y: number
 }
 
-export default function CodeBlock({ code }: { code: string }) {
+export default function CodeBlock({ code, output }: { code: string; output?: string }) {
   const tokens = useMemo(() => tokenizeCode(code), [code])
+  const [showOutput, setShowOutput] = useState(false)
+  const outputRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (showOutput && outputRef.current) {
+      outputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [showOutput])
 
   const usedTerms = useMemo(() => {
     const seen = new Set<string>()
@@ -190,9 +198,32 @@ export default function CodeBlock({ code }: { code: string }) {
         <span className="code-lang">C#</span>
         <span className="code-hint">Pasa el cursor sobre una palabra clave</span>
       </div>
-      <pre className="code-content">
-        <code>{tokens.map(renderToken)}</code>
-      </pre>
+      <div className="code-wrapper">
+        <pre className="code-content">
+          <code>{tokens.map(renderToken)}</code>
+        </pre>
+        {output && (
+          <button
+            className={`play-btn-float ${showOutput ? 'active' : ''}`}
+            onClick={() => setShowOutput(!showOutput)}
+            aria-label={showOutput ? 'Ocultar salida' : 'Mostrar salida'}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span>{showOutput ? 'Salida' : 'Ejecutar'}</span>
+          </button>
+        )}
+      </div>
+
+      {showOutput && output && (
+        <div ref={outputRef} className="code-output">
+          <div className="output-header">
+            <span className="output-title">Salida</span>
+          </div>
+          <pre className="output-content">{output}</pre>
+        </div>
+      )}
 
       {tip &&
         createPortal(

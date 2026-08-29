@@ -3,6 +3,7 @@ export interface CSharpTopic {
   title: string
   content: string
   code?: string
+  output?: string
 }
 
 export interface CSharpCategory {
@@ -42,6 +43,17 @@ dynamic dato = "puede cambiar";
 
 // Inferencia de tipos
 var automatico = 10; // int por inferencia`,
+        output: `Variables declaradas correctamente
+edad: 25
+salario: 3500.5
+pi: 3.14
+precio: 99.99
+capacidad: 255
+nombre: Carlos
+letra: A
+activo: True
+dato: puede cambiar
+automatico: 10`,
       },
       {
         id: 'constantes',
@@ -52,6 +64,10 @@ var automatico = 10; // int por inferencia`,
 const string EMPRESA = "TechCorp";
 const int MAX_USUARIOS = 100;
 
+// PI = 3.14; // Error: no se puede modificar una constante`,
+        output: `PI = 3.14159265
+EMPRESA = TechCorp
+MAX_USUARIOS = 100
 // PI = 3.14; // Error: no se puede modificar una constante`,
       },
       {
@@ -82,6 +98,29 @@ int x = 10;
 x += 5;   // x = x + 5
 x -= 3;   // x = x - 3
 x *= 2;   // x = x * 2`,
+        output: `Aritméticos:
+suma = 15
+resta = 5
+mul = 50
+div = 3
+divReal = 3.3333333333333335
+mod = 1
+
+Comparación:
+igual = True
+mayor = True
+menor = False
+
+Lógicos:
+y = False
+o = True
+no = False
+
+Asignación:
+x = 10
+x += 5  → 15
+x -= 3  → 12
+x *= 2  → 24`,
       },
       {
         id: 'conversion',
@@ -111,6 +150,22 @@ else
 {
     Console.WriteLine("No es un número válido");
 }`,
+        output: `Conversión implícita:
+entero = 42
+decimal = 42
+
+Conversión explícita:
+valor = 3.99
+resultado = 3 (truncado)
+
+Métodos de conversión:
+texto = "123"
+num = 123
+num2 = 123
+deNumero = "42"
+
+TryParse:
+No es un número válido`,
       },
     ],
   },
@@ -163,6 +218,10 @@ string tipo = dia switch
 
 // Operador ternario
 string mensaje = hora < 12 ? "Mañana" : "Tarde";`,
+        output: `Buenas tardes
+Día laboral
+tipo = Día laboral
+mensaje = Tarde`,
       },
       {
         id: 'bucles',
@@ -205,6 +264,44 @@ for (int i = 0; i < 10; i++)
     if (i == 7) break;    // termina en 7
     Console.WriteLine(i);
 }`,
+        output: `for:
+Iteración 0
+Iteración 1
+Iteración 2
+Iteración 3
+Iteración 4
+
+while:
+Contador: 0
+Contador: 1
+Contador: 2
+Contador: 3
+Contador: 4
+
+do-while:
+Número: 10
+Número: 9
+Número: 8
+Número: 7
+Número: 6
+Número: 5
+Número: 4
+Número: 3
+Número: 2
+Número: 1
+
+foreach:
+Manzana
+Pera
+Naranja
+
+break/continue:
+0
+1
+2
+4
+5
+6`,
       },
     ],
   },
@@ -244,6 +341,10 @@ Saludar("Ana");
 int resultado = Sumar(3, 5);
 Configurar("localhost");             // puerto=80, ssl=false
 Configurar("localhost", 443, true);  // puerto=443, ssl=true`,
+        output: `Hola, Ana!
+resultado = 8
+localhost:80 SSL=False
+localhost:443 SSL=True`,
       },
       {
         id: 'parametros',
@@ -280,6 +381,10 @@ Dividir(10, 3, out int c, out int r);
 // c = 3, r = 1
 
 int suma = Sumar(1, 2, 3, 4, 5); // 15`,
+        output: `Por valor: val = 5 (sin cambios)
+Por ref: val = 6 (modificado)
+Out: cociente = 3, residuo = 1
+Params: suma = 15`,
       },
       {
         id: 'sobrecarga',
@@ -301,6 +406,11 @@ Sumar(1, 2, 3);    // llama a la versión de 3 parámetros
 Mostrar(42);       // Entero: 42
 Mostrar(3.14);     // Decimal: 3.14
 Mostrar("Hola");   // Texto: Hola`,
+        output: `Sumar(1, 2) = 3
+Sumar(1, 2, 3) = 6
+Mostrar(42) → Entero: 42
+Mostrar(3.14) → Decimal: 3.14
+Mostrar("Hola") → Texto: Hola`,
       },
     ],
   },
@@ -350,6 +460,7 @@ Mostrar("Hola");   // Texto: Hola`,
 // Uso
 Persona persona = new Persona("Carlos", 30);
 persona.Presentarse(); // Hola, soy Carlos y tengo 30 años`,
+        output: `Hola, soy Carlos y tengo 30 años`,
       },
       {
         id: 'constructores',
@@ -383,6 +494,9 @@ persona.Presentarse(); // Hola, soy Carlos y tengo 30 años`,
 // Uso
 Producto p1 = new Producto("Laptop", 999.99m);
 Producto p2 = new Producto("Mouse");`,
+        output: `Clase Producto cargada
+p1: Laptop - 999.99 - [fecha actual]
+p2: Mouse - 0 - [fecha actual]`,
       },
       {
         id: 'herencia',
@@ -432,6 +546,7 @@ public class Perro : Animal
 // Uso
 Animal animal = new Perro("Rex", 5, "Labrador");
 animal.HacerSonido(); // "Rex dice: Guau!" (polimorfismo)`,
+        output: `Rex dice: Guau!`,
       },
       {
         id: 'polimorfismo',
@@ -481,49 +596,102 @@ foreach (Animal animal in animales)
 // Rex dice: Guau!
 // Misi dice: Miau!
 // Genérico hace un sonido`,
+        output: `Rex dice: Guau!
+Misi dice: Miau!
+Genérico hace un sonido`,
       },
       {
         id: 'interfaces',
         title: 'Interfaces',
         content:
-          'Una interfaz define un contrato que las clases deben implementar. Contiene declaraciones de métodos, propiedades o eventos sin implementación. Una clase puede implementar múltiples interfaces pero solo heredar de una clase.',
-        code: `// Definición de interfaces
-public interface IDibujable
+          'Una interfaz define un contrato que las clases deben implementar. Contiene declaraciones de métodos o propiedades sin implementación. Una clase puede implementar múltiples interfaces pero solo heredar de una clase.',
+        code: `// Interfaz simple
+public interface IVehiculo
 {
-    void Dibujar();
-    string Tipo { get; }
+    void Arrancar();
+    void Detener();
 }
 
-public interface IAnimable
+// Implementaciones
+public class Coche : IVehiculo
 {
-    void Animar();
-}
-
-// Implementación múltiple
-public class Circulo : IDibujable, IAnimable
-{
-    public string Tipo => "Círculo";
-
-    public void Dibujar()
+    public void Arrancar()
     {
-        Console.WriteLine("Dibujando círculo");
+        Console.WriteLine("Coche arrancando");
     }
 
-    public void Animar()
+    public void Detener()
     {
-        Console.WriteLine("Animando círculo");
+        Console.WriteLine("Coche detenido");
     }
 }
 
-// Uso con tipo de interfaz
-IDibujable forma = new Circulo();
-forma.Dibujar();
-
-// Verificación de interfaz
-if (forma is IAnimable animable)
+public class Moto : IVehiculo
 {
-    animable.Animar();
+    public void Arrancar()
+    {
+        Console.WriteLine("Moto arrancando");
+    }
+
+    public void Detener()
+    {
+        Console.WriteLine("Moto detenida");
+    }
+}
+
+// Uso polimórfico
+IVehiculo v = new Coche();
+v.Arrancar(); // "Coche arrancando"
+
+v = new Moto();
+v.Arrancar(); // "Moto arrancando"
+
+// Interfaz con propiedad
+public interface IAnimal
+{
+    string Nombre { get; }
+    void Sonido();
+}
+
+public class Perro : IAnimal
+{
+    public string Nombre
+    {
+        get { return "Perro"; }
+    }
+
+    public void Sonido()
+    {
+        Console.WriteLine("Guau");
+    }
+}
+
+public class Gato : IAnimal
+{
+    public string Nombre
+    {
+        get { return "Gato"; }
+    }
+
+    public void Sonido()
+    {
+        Console.WriteLine("Miau");
+    }
+}
+
+// Lista de animales
+IAnimal[] animales = { new Perro(), new Gato() };
+foreach (IAnimal a in animales)
+{
+    Console.WriteLine(a.Nombre + ": ");
+    a.Sonido();
 }`,
+        output: `Coche arrancando
+Moto arrancando
+Perro: 
+Guau
+Gato: 
+Miau`,
       },
       {
         id: 'abstractas',
@@ -564,6 +732,8 @@ public class Gato : Animal
 Gato gato = new Gato("Michi");
 gato.HacerSonido(); // Michi dice: Miau!
 gato.Comer();       // Michi está comiendo`,
+        output: `Michi dice: Miau!
+Michi está comiendo`,
       },
       {
         id: 'encapsulamiento',
@@ -607,6 +777,8 @@ CuentaBancaria cuenta = new CuentaBancaria("Ana", 1000);
 cuenta.Retirar(200);       // OK
 // cuenta.saldo = 999999;  // Error: saldo es private
 Console.WriteLine(cuenta.Saldo); // 800`,
+        output: `Retiro exitoso: 200
+Saldo actual: 800`,
       },
     ],
   },
@@ -654,6 +826,12 @@ foreach (Estado e in Enum.GetValues<Estado>())
 {
     Console.WriteLine($"{e} = {(int)e}");
 }`,
+        output: `1
+En progreso
+Pendiente = 1
+EnProgreso = 2
+Completado = 3
+Cancelado = 4`,
       },
       {
         id: 'structs',
@@ -691,6 +869,8 @@ c.X = 10; // a.X sigue siendo 0
 
 Console.WriteLine(a.DistanciaHasta(b)); // 5
 Console.WriteLine(a); // (0, 0)`,
+        output: `5
+(0, 0)`,
       },
       {
         id: 'delegados',
@@ -720,6 +900,11 @@ Console.WriteLine(multiplicar(3, 4)); // 12
 
 Predicate<int> esPar = n => n % 2 == 0;
 Console.WriteLine(esPar(4)); // true`,
+        output: `15
+5
+Hola con Action
+12
+True`,
       },
       {
         id: 'eventos',
@@ -751,6 +936,9 @@ monitor.DetectarAlerta("fuego");
 // Detectado: fire
 // Suscriptor 1: Alerta de fire
 // Suscriptor 2: Alerta de fire`,
+        output: `Detectado: fuego
+Suscriptor 1: Alerta de fuego
+Suscriptor 2: Alerta de fuego`,
       },
       {
         id: 'genericos',
@@ -792,6 +980,10 @@ public class Lista<T> where T : class, IComparable<T>
 {
     // T debe ser tipo de referencia e implementar IComparable
 }`,
+        output: `42
+Hola
+20
+xyz`,
       },
     ],
   },
@@ -835,6 +1027,15 @@ int primeroMayor5 = numeros.First(n => n > 5); // 6
 bool hayPares = numeros.Any(n => n % 2 == 0); // true
 bool todosPositivos = numeros.All(n => n > 0); // true
 int cantidad = numeros.Count(); // 10`,
+        output: `Pares (query): 10, 8, 6, 4, 2
+Pares (method): 10, 8, 6, 4, 2
+Cuadrados: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+Primero: 1
+Último: 10
+Primero > 5: 6
+Hay pares: True
+Todos positivos: True
+Cantidad: 10`,
       },
       {
         id: 'linq-objetos',
@@ -877,6 +1078,14 @@ var porCategoria = productos
         Total = g.Count(),
         PrecioMedio = g.Average(p => p.Precio)
     });`,
+        output: `Electrónicos ordenados por precio:
+Mouse: 25€
+Teclado: 75€
+Laptop: 999€
+
+Agrupados por categoría:
+Electrónica: 3 productos, precio medio: 366.33€
+Muebles: 1 producto, precio medio: 150€`,
       },
     ],
   },
@@ -932,6 +1141,15 @@ catch (TaskCanceledException)
 {
     Console.WriteLine("La operación fue cancelada");
 }`,
+        output: `ProcesarMultiplesAsync():
+10
+20
+30
+
+Manejo de excepciones:
+Error de red: ... (si falla la conexión)
+o
+La operación fue cancelada`,
       },
     ],
   },
@@ -984,8 +1202,11 @@ void ValidarEdad(int edad)
     if (edad > 150)
         throw new ArgumentOutOfRangeException(nameof(edad));
 }`,
+        output: `Índice fuera de rango: Index was outside the bounds of the array.
+Limpieza completada
+División por cero controlada`,
       },
-      {
+{
         id: 'excepciones-custom',
         title: 'Excepciones Personalizadas',
         content:
@@ -1021,8 +1242,10 @@ try
 catch (SaldoInsuficienteException ex)
 {
     Console.WriteLine(ex.Message);
-    Console.WriteLine($"Faltan {ex.CantidadSolicitada - ex.SaldoActual}€");
+    Console.WriteLine($"Faltan {ex.CantidadSolicitada - ex.SaldoActual}€";
 }`,
+        output: `Saldo insuficiente: tiene 100€ y solicitó 500€
+Faltan 400€`,
       },
     ],
   },
@@ -1066,6 +1289,15 @@ Array.Sort(nombres);
 Array.Reverse(nombres);
 int idx = Array.IndexOf(nombres, "Bob");
 Array.Clear(nombres);`,
+        output: `init[0] = 1
+init[2] = 10
+init.Length = 5
+matriz[1, 2] = 6
+
+Después de Sort: Bob, Carlos, Ana
+Después de Reverse: Ana, Carlos, Bob
+IndexOf("Bob") = 1
+Array.Clear: todos a 0/null`,
       },
       {
         id: 'list',
@@ -1106,6 +1338,20 @@ Console.WriteLine(numeros.Capacity); // capacidad actual
 // Convertir
 string[] array = frutas.ToArray();
 List<int> desdeArray = new List<int>(new int[] { 1, 2, 3 });`,
+        output: `Agregar: Plátano, Manzana, Pera, Naranja, Uva
+Eliminar Pera: Plátano, Manzana, Naranja, Uva
+RemoveAt(0): Manzana, Naranja, Uva
+RemoveAll(N*): Manzana, Uva
+
+Contiene Uva: True
+IndexOf Naranja: -1 (ya eliminado)
+Find(len>3): Manzana
+FindAll(len>4): Manzana
+
+Sort: 1 2 3 4 5
+Reverse: 5 4 3 2 1
+Count: 5
+Capacity: 8`,
       },
       {
         id: 'dictionary',
@@ -1154,6 +1400,17 @@ foreach (var (nombre, edad) in edades)
 Console.WriteLine(edades.Count);    // 2
 Console.WriteLine(edades.Keys.Count); // 2
 Console.WriteLine(edades.Values.Count); // 2`,
+        output: `edadAna = 25
+existe = True
+Diana no encontrada (TryGetValue retorna false)
+
+Después de Remove("Bob"):
+Ana: 25
+Carlos: 35
+
+Count: 2
+Keys: 2
+Values: 2`,
       },
     ],
   },
@@ -1162,47 +1419,63 @@ Console.WriteLine(edades.Values.Count); // 2`,
     label: 'Strings',
     icon: 'type',
     topics: [
-      {
+{
         id: 'string-metodos',
         title: 'Métodos de String',
         content:
           'Los strings en C# son inmutables (no cambian). Cada operación crea un nuevo string. C# ofrece muchos métodos integrados para manipulación de texto.',
         code: `string texto = "  Hola Mundo C#  ";
 
-// Propiedades
-Console.WriteLine(texto.Length); // 17
+ // Propiedades
+ Console.WriteLine(texto.Length); // 17
 
-// Mayúsculas / minúsculas
-Console.WriteLine(texto.ToUpper()); // "  HOLA MUNDO C#  "
-Console.WriteLine(texto.ToLower()); // "  hola mundo c#  "
+ // Mayúsculas / minúsculas
+ Console.WriteLine(texto.ToUpper()); // "  HOLA MUNDO C#  "
+ Console.WriteLine(texto.ToLower()); // "  hola mundo c#  "
 
-// Recortar espacios
-Console.WriteLine(texto.Trim());      // "Hola Mundo C#"
-Console.WriteLine(texto.TrimStart()); // "Hola Mundo C#  "
-Console.WriteLine(texto.TrimEnd());   // "  Hola Mundo C#"
+ // Recortar espacios
+ Console.WriteLine(texto.Trim());      // "Hola Mundo C#"
+ Console.WriteLine(texto.TrimStart()); // "Hola Mundo C#  "
+ Console.WriteLine(texto.TrimEnd());   // "  Hola Mundo C#"
 
-// Buscar
-bool contiene = texto.Contains("Mundo"); // true
-int indice = texto.IndexOf("Mundo");     // 8
-int ultimo = texto.LastIndexOf("o");     // 13
+ // Buscar
+ bool contiene = texto.Contains("Mundo"); // true
+ int indice = texto.IndexOf("Mundo");     // 8
+ int ultimo = texto.LastIndexOf("o");     // 13
 
-// Reemplazar
-string reemplazado = texto.Replace("Mundo", "Universo");
-// "  Hola Universo C#  "
+ // Reemplazar
+ string reemplazado = texto.Replace("Mundo", "Universo");
+ // "  Hola Universo C#  "
 
-// Subcadenas
-string sub = texto.Substring(2, 4); // "Hola"
+ // Subcadenas
+ string sub = texto.Substring(2, 4); // "Hola"
 
-// Dividir y unir
-string csv = "manzana,pera,naranja";
-string[] partes = csv.Split(',');
-string unido = string.Join(" | ", partes);
-// "manzana | pera | naranja"
+ // Dividir y unir
+ string csv = "manzana,pera,naranja";
+ string[] partes = csv.Split(',');
+ string unido = string.Join(" | ", partes);
+ // "manzana | pera | naranja"
 
-// Verificar
-bool empieza = texto.StartsWith("  Hola"); // true
-bool termina = texto.EndsWith("C#  ");     // true
-bool vacio = string.IsNullOrWhiteSpace("   "); // true`,
+ // Verificar
+ bool empieza = texto.StartsWith("  Hola"); // true
+ bool termina = texto.EndsWith("C#  ");     // true
+ bool vacio = string.IsNullOrWhiteSpace("   "); // true`,
+        output: `Length: 17
+ToUpper: "  HOLA MUNDO C#  "
+ToLower: "  hola mundo c#  "
+Trim: "Hola Mundo C#"
+TrimStart: "Hola Mundo C#  "
+TrimEnd: "  Hola Mundo C#"
+Contains "Mundo": True
+IndexOf "Mundo": 8
+LastIndexOf "o": 13
+Replace: "  Hola Universo C#  "
+Substring(2,4): "Hola"
+Split: [manzana, pera, naranja]
+Join: "manzana | pera | naranja"
+StartsWith "  Hola": True
+EndsWith "C#  ": True
+IsNullOrWhiteSpace("   "): True`,
       },
       {
         id: 'string-interpolacion',
@@ -1243,6 +1516,19 @@ string json = """
         "edad": 25
     }
     """;`,
+        output: `Hola, soy Carlos y tengo 25 años
+2 + 2 = 4
+Hoy es [fecha actual]
+Precio: 1.234,56€
+Precio: 1234.56
+Precio: 1.235
+|    1|       1|         20%|
+|    2|       4|         40%|
+|    3|       9|         60%|
+|    4|      16|         80%|
+|    5|      25|        100%|
+ruta: C:/Users/Documentos/archivo.txt
+comillas: Dice "hola" al mundo`,
       },
     ],
   },
@@ -1293,6 +1579,8 @@ p.Nombre = "Ana";  // usa set
 p.Email = "ANA@TEST.COM";
 Console.WriteLine(p.Email);    // "ana@test.com"
 Console.WriteLine(p.EsMayorDeEdad); // true`,
+        output: `ana@test.com
+True`,
       },
     ],
   },
@@ -1340,6 +1628,14 @@ Button_Click += (sender, e) =>
 // Lambda con tipo explícito
 Func<int, string, bool> comparar = (int a, string b) =>
     a.ToString() == b;`,
+        output: `cuadrado(5) = 25
+sumar(3, 4) = 7
+saludar() → Hola!
+paridad(4) = "par"
+paridad(5) = "impar"
+pares = [2, 4, 6]
+cuadrados = [1, 4, 9, 16, 25, 36]
+sumaTotal = 21`,
       },
     ],
   },
@@ -1384,6 +1680,15 @@ void doStuff() { }
 // ✅ buena práctica
 int cantidadProductos = 5;
 void calcularTotalDescuento() { }`,
+        output: `Convenciones aplicadas:
+- Clase: PersonaServicio (PascalCase)
+- Propiedad: NombreCompleto (PascalCase)
+- Método: CalcularEdad (PascalCase)
+- Parámetro: nombreArchivo (camelCase)
+- Variable local: contador (camelCase)
+- Campo privado: _mensaje (_camelCase)
+- Constantes: VERSION_API, MAX_INTENTOS (UPPER_CASE)
+- Interfaces: IRepositorio, IServicio (prefijo I)`,
       },
     ],
   },
@@ -1444,6 +1749,11 @@ string describe = (1, "uno") switch
     (1, var texto) => $"uno: {texto}",
     _ => "otro"
 };`,
+        output: `Es un string: Hola
+categoria = medio
+resultado = entero positivo: 42
+Mayor de edad y con nombre
+describe = uno: uno`,
       },
     ],
   },
@@ -1495,6 +1805,16 @@ if (nombre is null)
 // Not-null assertion (!)
 // ⚠️ Solo usar cuando SEGURO no es null
 string seguro = nombre!.Length.ToString();`,
+        output: `nullableInt: null (no imprime)
+nullableDouble: 3.14
+nullableBool: True
+
+longitud = null (sin excepción)
+texto = "valor por defecto"
+nombre = "Anónimo" (después de ??=)
+primerElemento = null
+cantidad = 0
+El nombre es nulo`,
       },
     ],
   },
@@ -1541,6 +1861,9 @@ string resultado = "  Hola Mundo  "
     .Trim()
     .Replace("Mundo", "C#")
     .ToLower();`,
+        output: `slug = "hola-mundo-c#"
+esPar = True
+resultado = "hola c#"`,
       },
     ],
   },

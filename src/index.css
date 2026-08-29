@@ -41,6 +41,13 @@
   --statusbar-bg: #2b579a;
   --statusbar-text: rgba(255, 255, 255, 0.9);
 
+  /* Document (content) area */
+  --content-bg: #fff;
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-shadow: rgba(0, 0, 0, 0.08);
+  --modal-bg: #fff;
+  --grid-line: rgba(43, 87, 154, 0.09);
+
   /* Text */
   --text-primary: #333;
   --text-secondary: #666;
@@ -87,4 +94,43 @@ body {
 ::selection {
   background: var(--word-blue-light);
   color: var(--word-blue-dark);
+}
+
+/* ── Dark mode ── */
+[data-theme='dark'] {
+  --word-blue-light: #2a4a7a;
+  --word-blue-hover: #33557f;
+
+  --ribbon-bg: #1e1e1e;
+  --ribbon-border: #3a3a3a;
+  --ribbon-tab-active: #252526;
+  --ribbon-tab-hover: #2a2a2b;
+  --ribbon-group-border: #3a3a3a;
+
+  --doc-bg: #1b1b1c;
+  --page-bg: #1e1e1e;
+  --page-shadow: rgba(0, 0, 0, 0.5);
+
+  --content-bg: #1e1e20;
+  --card-bg: rgba(40, 40, 42, 0.92);
+  --card-shadow: rgba(0, 0, 0, 0.45);
+  --modal-bg: #2a2a2b;
+  --grid-line: rgba(86, 133, 200, 0.14);
+
+  --text-primary: #d8d8d8;
+  --text-secondary: #a8a8a8;
+  --text-muted: #777;
+}
+
+[data-theme='dark'] body,
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: var(--doc-bg);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #5c5c5c;
 }

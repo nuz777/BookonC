@@ -34,6 +34,15 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showCloseConfirm, setShowCloseConfirm] = useState(false)
+  const [isDark, setIsDark] = useState(() => {
+    const stored = localStorage.getItem('bookonc-theme')
+    return stored ? stored === 'dark' : false
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
+    localStorage.setItem('bookonc-theme', isDark ? 'dark' : 'light')
+  }, [isDark])
 
   useEffect(() => {
     const onFsChange = () => setIsFullscreen(Boolean(document.fullscreenElement))
@@ -106,6 +115,13 @@ function App() {
           <span className="titlebar-filename">BookonC - Referencia C#</span>
         </div>
         <div className="titlebar-actions">
+          <button
+            className="titlebar-btn theme-toggle"
+            title={isDark ? 'Modo claro' : 'Modo oscuro'}
+            onClick={() => setIsDark((d) => !d)}
+          >
+            {isDark ? '☀' : '☾'}
+          </button>
           <button className="titlebar-btn" title="Restaurar" onClick={restoreWindow}>─</button>
           <button
             className={`titlebar-btn maximize ${isFullscreen ? 'active' : ''}`}
@@ -186,7 +202,7 @@ function App() {
             </div>
             <div className="topic-content">
               <p className="topic-definition">{currentTopic.content}</p>
-              {currentTopic.code && <CodeBlock code={currentTopic.code} />}
+              {currentTopic.code && <CodeBlock code={currentTopic.code} output={currentTopic.output} />}
             </div>
           </div>
         </div>
